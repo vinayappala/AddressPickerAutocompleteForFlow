@@ -64,7 +64,7 @@
         <name>Flow</name>
     </types>
     <types>
-        <members>QSYD_googleapis</members>
+        <members>*</members>
         <name>RemoteSiteSetting</name>
     </types>
     <types>
