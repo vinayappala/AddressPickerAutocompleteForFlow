@@ -64,12 +64,12 @@
         <name>Flow</name>
     </types>
     <types>
-        <members>*</members>
+        <members>QSYD_googleapis</members>
         <name>RemoteSiteSetting</name>
     </types>
     <types>
         <members>poweredByGoogle</members>
         <name>StaticResource</name>
     </types>
-    <version>50.0</version>
+    <version>64.0</version>
 </Package>

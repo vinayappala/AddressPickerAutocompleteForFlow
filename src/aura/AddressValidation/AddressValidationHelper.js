@@ -26,7 +26,6 @@
                 // generic error handler
                 let errors = response.getError();
                 if (errors) {
-                    console.log("Errors", errors);
                     if (errors[0] && errors[0].message) {
                         throw new Error("Error" + errors[0].message);
                     }
@@ -257,24 +256,18 @@
                         cmp.set("v.premise", place.name);
                     }
 
-                    for (i = 0; i < place.address_components.length; i++) {
-                        let addressType = place.address_components[i].types[0];
-                        
-                        if (componentForm[addressType]) {
-                            let val = place.address_components[i][componentForm[addressType]];
-                            
-                            if(addressType == "sublocality_level_1" || addressType == "locality") {
-                                cmp.set("v.locality", val);
-                            } else if(addressType == "neighborhood") {
-                                tmpNeighborhood = val;
-                            } else {
-                                cmp.set("v." + addressType, val);
-                                if(addressType == "street_number" || addressType == "route") {
+                    // Updated: Loop through all types in each address component
+                    place.address_components.forEach(function(component) {
+                        component.types.forEach(function(type) {
+                            if (componentForm[type]) {
+                                let val = component[componentForm[type]];
+                                cmp.set("v." + type, val);
+                                if(type == "street_number" || type == "route") {
                                     fullStreetAddress += val + " ";
                                 }
                             }
-                        }
-                    }
+                        });
+                    });
 
                     if(cmp.get("v.locality") == null || cmp.get("v.locality") == '') {
                         cmp.set("v.locality", tmpNeighborhood);
